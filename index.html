@@ -1,23 +1,535 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+<style>
+    /* Reset and Base Styles */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      background-color: #f7f9fc; /* Soft background color */
+    }
+    header, section, footer {
+      padding: 20px;
+      max-width: 1000px; /* Wider layout */
+      margin: auto;
+    }
+    a { text-decoration: none; color: inherit; }
+    ul, ol { padding-left: 20px; }
+    /* Visual Hierarchy and Aesthetics */
+    header {
+      background-color: #ffffff;
+      text-align: center;
+      padding: 60px 20px;
+      border-bottom: 5px solid #0056b3; /* Brand color */
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #0056b3;
+      margin-bottom: 10px;
+    }
+    h2 {
+      font-size: 2em;
+      color: #0056b3;
+      border-bottom: 2px solid #e0eaf1;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    h3 {
+      font-size: 1.5em;
+      color: #007bff;
+      margin-top: 25px;
+    }
+    .cta-btn {
+      display: inline-block;
+      padding: 18px 30px;
+      background-color: #0056b3;
+      color: #fff;
+      font-size: 18px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 25px;
+      transition: background 0.3s ease, transform 0.2s ease;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .cta-btn:hover {
+      background-color: #004085;
+      transform: translateY(-2px);
+    }
+    /* Section Styling */
+    section {
+      background-color: #ffffff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      padding: 30px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+    /* Content Elements */
+    blockquote {
+      background-color: #f1f8e9; /* Soft green for testimonials */
+      border-left: 5px solid #689f38;
+      margin: 20px 0;
+      padding: 15px 20px;
+      font-style: italic;
+      line-height: 1.8;
+      border-radius: 5px;
+    }
+    .highlight {
+      background-color: #fff3e0; /* Soft orange highlight */
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #c04000;
+    }
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .service-card {
+      background-color: #e0f2f1; /* Soft teal background for cards */
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+      width: calc(100% - 20px); /* Adjust for padding */
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+    textarea { height: 100px; }
+    button[type="submit"] {
+      padding: 15px 25px;
+      background-color: #28a745;
+      color: #fff;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button[type="submit"]:hover { background-color: #218838; }
+    footer {
+      background-color: #0056b3;
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      h1 { font-size: 2em; }
+      h2 { font-size: 1.8em; }
+      .service-grid { grid-template-columns: 1fr; }
+      input[type="text"], input[type="email"], input[type="tel"], textarea, select { width: 100%; }
+    }
+  </style>
+
+  <!-- Schema Markup for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HomeAndConstructionBusiness",
+    "name": "통영인테리어 전문",
+    "url": "https://example.com",
+    "logo": "https://example.com/logo.png",
+    "description": "통영 아파트, 주택, 상업공간 인테리어 및 리모델링 전문. 통영 전 지역 무료 견적 상담 및 꼼꼼한 시공으로 높은 고객 만족도. 2026년 최신 인테리어 트렌드 반영.",
+    "telephone": "+82-10-1234-5678",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "통영시",
+      "addressRegion": "경상남도",
+      "postalCode": "53000",
+      "streetAddress": "통영시 광도면 죽림해안로 123"
+    },
+    "hasMap": "https://maps.google.com/maps?q=통영%20광도면%20죽림해안로%20123",
+    "areaServed": [
+      { "@type": "City", "name": "통영시" },
+      { "@type": "AdministrativeArea", "name": "광도면" },
+      { "@type": "AdministrativeArea", "name": "무전동" },
+      { "@type": "AdministrativeArea", "name": "죽림동" },
+      { "@type": "AdministrativeArea", "name": "도남동" },
+      { "@type": "AdministrativeArea", "name": "봉평동" },
+      { "@type": "AdministrativeArea", "name": "북신동" },
+      { "@type": "AdministrativeArea", "name": "정량동" },
+      { "@type": "AdministrativeArea", "name": "용남면" },
+      { "@type": "AdministrativeArea", "name": "산양읍" },
+      { "@type": "AdministrativeArea", "name": "욕지도" },
+      { "@type": "AdministrativeArea", "name": "사량도" }
+    ],
+    "review": [
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "김민지" },
+        "datePublished": "2025-11-20",
+        "reviewBody": "통영에서 인테리어 업체 여러 곳을 비교해봤는데, 여기가 제일 합리적인 견적이었어요. 마감도 훌륭하고 상담도 친절해서 만족합니다.",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5" }
+      },
+      {
+        "@type": "Review",
+        "author": { "@type": "Person", "name": "이준호" },
+        "datePublished": "2025-12-05",
+        "reviewBody": "상가 인테리어를 맡겼는데, 디자인 감각이 뛰어나고 제 요구사항을 정확히 반영해 주셨어요. 덕분에 매출도 올랐습니다.",
+        "reviewRating": { "@type": "Rating", "ratingValue": "5" }
+      }
+    ]
+  }
+  </script>
+
+  <!-- FAQPage Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "통영 인테리어 평균 비용은 얼마인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "인테리어 비용은 아파트 평수, 시공 범위(전체 또는 부분), 자재 등급, 철거 유무에 따라 크게 달라집니다. 통영 지역 30평대 아파트 전체 리모델링 기준 평균 비용은 2,000만 원에서 4,000만 원 사이로 형성되며, 이는 자재 선택에 따라 크게 변동될 수 있습니다. 자세한 견적은 현장 방문 상담을 통해 받아보시는 것이 가장 정확합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "통영 인테리어 업체를 선택할 때 '내돈내산' 후기를 참고하는 것이 중요한가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "네, 매우 중요합니다. '내돈내산' 후기는 실제로 서비스를 이용한 고객의 솔직한 경험담을 담고 있어 업체의 실제 시공 품질, AS 만족도, 계약 이행 여부 등을 파악하는 데 가장 신뢰할 수 있는 정보입니다. 특히 통영 지역에서 인지도가 낮은 소규모 업체의 경우, 후기나 포트폴리오를 반드시 확인하여 신중하게 선택해야 합니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "2026년 통영 인테리어 트렌드는 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "2026년 인테리어 트렌드는 친환경 자재 사용과 스마트홈 기술 통합이 핵심입니다. 통영 지역은 바닷가 인접 주택이 많아, 습도 조절과 단열에 강한 기능성 자재(예: 친환경 페인트, PVC 창호) 수요가 높습니다. 또한, 최소한의 가구로 넓어 보이는 미니멀리즘 디자인이 꾸준히 강세이며, 개인의 취향을 반영한 맞춤형 공간 설계가 중요해지고 있습니다."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header>
+    <h1>통영 인테리어 전문 업체 | 믿을 수 있는 리모델링 파트너</h1>
+    <p>통영 아파트, 주택, 상업공간 인테리어! <span class="highlight">2026년 트렌드를 반영한 합리적인 가격의 맞춤형 솔루션</span></p>
+    <a href="#estimate-form" class="cta-btn">📞 무료 견적 문의하기</a>
+  </header>
+
+  <section id="whyus">
+    <h2>왜 통영 인테리어는 전문가에게 맡겨야 할까요?</h2>
+    <p>통영시는 바닷가에 인접해 있어 일반 내륙 지역과 다른 환경적 특징을 가집니다. 높은 염분과 습도는 일반적인 인테리어 자재의 수명을 단축시키고, 곰팡이 발생률을 높입니다. 따라서 통영 지역의 특성을 정확히 이해하고, 이에 맞는 자재 선정과 시공 노하우를 가진 전문 업체 선정이 필수적입니다. 저희는 통영의 <span class="highlight">죽림동, 무전동, 광도면, 도남동</span> 등 주요 지역에서 수많은 시공 경험을 통해 통영만의 환경에 최적화된 솔루션을 제공합니다.</p>
+    <p>단순히 예쁜 디자인을 넘어, 오래도록 쾌적하게 유지되는 실용적인 인테리어가 중요합니다. 저희는 <span class="highlight">철저한 방수/방습 처리와 단열 보강</span>을 기본으로 하여, 고객님의 소중한 공간을 안전하게 지켜드립니다.</p>
+  </section>
+
+  <section id="services">
+    <h2>주요 인테리어 서비스</h2>
+    <p>통영 지역 고객님의 다양한 요구에 맞춰, 아파트 전체 리모델링부터 부분 시공까지 맞춤형 서비스를 제공합니다. <span class="highlight">무료 방문 견적 서비스</span>를 통해 고객님 댁의 정확한 상태를 진단하고, 가장 효율적인 인테리어 계획을 수립해 드립니다.</p>
+
+    <div class="service-grid">
+      <div class="service-card">
+        <h3>아파트 전체 리모델링</h3>
+        <p>통영 지역 20~40평대 아파트 리모델링 전문. <span class="highlight">평균 25년 이상된 구축 아파트</span>의 문제점(단열, 방수, 누수)을 완벽하게 해결하고, 최신 트렌드에 맞는 세련된 디자인으로 새로운 공간을 창조합니다. 2026년 트렌드인 미니멀리즘, 스마트홈 시스템을 통합하여 생활의 질을 높입니다.</p>
+        <ul>
+            <li>통영 아파트 리모델링 비용 <span class="highlight">가성비 견적</span> 제안</li>
+            <li>철거, 설비, 창호 교체, 목공, 도배, 마루, 주방, 욕실 올인원 시공</li>
+            <li><span class="highlight">광도면, 무전동</span> 주요 아파트 단지 다수 시공 경험</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>주택/빌라 인테리어</h3>
+        <p>단독 주택 및 빌라의 경우, 아파트와 달리 구조 변경의 폭이 넓어 맞춤형 디자인이 가능합니다. 노후된 주택의 경우 <span class="highlight">단열 보강, 외벽 마감, 옥상 방수</span> 등 외장 공사가 병행되어야 합니다. 통영 산양읍, 용남면 지역의 주택 특성을 고려한 맞춤형 솔루션을 제공합니다.</p>
+        <ul>
+            <li>단열/방수/난방 공사 전문</li>
+            <li>주택 구조 변경 및 증축/개축 상담</li>
+            <li>옥상 및 베란다 등 외부 공간 활용 디자인</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <h3>상업 공간 인테리어 (카페, 식당)</h3>
+        <p>통영은 관광 도시로써 <span class="highlight">독특한 상업 공간 디자인</span>이 중요합니다. 고객의 시선을 사로잡는 컨셉 디자인부터 실용적인 동선 설계까지, 매장의 매출을 높이는 인테리어를 제안합니다. 통영 시내 및 <span class="highlight">도남동, 미수동</span> 해변가 상권에 특화된 디자인을 제공합니다.</p>
+        <ul>
+            <li>카페, 식당, 펜션 등 업종별 맞춤 디자인</li>
+            <li>영업 시작일에 맞춘 철저한 공사 일정 관리</li>
+            <li>합리적인 <span class="highlight">가격 비교</span> 후 최적의 견적 제안</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <h2>통영 인테리어 진행 절차와 핵심 체크리스트</h2>
+    <p>성공적인 인테리어는 투명하고 체계적인 절차에서 시작됩니다. 저희는 고객과의 소통을 최우선으로 하여, 견적 산정부터 시공 완료까지 모든 과정을 명확하게 공유합니다.</p>
+
+    <ol>
+      <li><strong>1단계: 무료 견적 및 상담 (방문 견적 필수)</strong>
+        <ul>
+            <li><strong>상담 요청:</strong> 전화, 문자, 온라인 폼을 통해 고객님의 인테리어 희망 사항을 접수합니다.</li>
+            <li><strong>현장 방문 진단:</strong> 통영 지역 내 시공 장소를 직접 방문하여 <span class="highlight">정확한 실측</span>을 진행합니다. 이 때 아파트의 경우 관리사무소 협의 사항, 주택의 경우 노후도 및 구조를 면밀히 파악합니다.</li>
+            <li><strong>요구사항 청취:</strong> 고객님의 라이프스타일, 예산 범위, 선호 디자인(미니멀리즘, 북유럽 스타일 등)을 상세히 청취합니다.</li>
+        </ul>
+      </li>
+      <li><strong>2단계: 디자인 제안 및 상세 견적서 작성</strong>
+        <ul>
+            <li><strong>디자인 컨셉 제안:</strong> 1단계 상담을 바탕으로 2026년 트렌드를 반영한 맞춤형 디자인 컨셉을 제안합니다.</li>
+            <li><strong>상세 견적서 제공:</strong> 공사 범위(철거, 목공, 욕실, 주방, 도배, 마루 등), 자재 등급(일반/고급), 인건비, 부가세 등을 포함한 <span class="highlight">투명한 견적서</span>를 제공합니다.</li>
+            <li><strong><span class="highlight">가격, 비용</span> 조율:</strong> 예산에 맞게 자재 등급을 조정하거나 공사 범위를 재협의하여 최종 계약 금액을 확정합니다. <span class="highlight">저렴한곳</span>을 찾으시는 고객을 위해 합리적인 <span class="highlight">비용</span>을 제안합니다.</li>
+        </ul>
+      </li>
+      <li><strong>3단계: 시공 계약 및 공사 착수 (철저한 일정 관리)</strong>
+        <ul>
+            <li><strong>계약서 작성:</strong> 공사 범위, 금액, 일정, AS 규정을 명확히 명시한 계약서를 작성합니다.</li>
+            <li><strong>착수 전 준비:</strong> 아파트의 경우 관리사무소에 <span class="highlight">인테리어 공사 가입 신고</span>를 완료하고, 입주민 동의서를 받습니다.</li>
+            <li><strong>시공 진행:</strong> 각 공정별 전문가들이 투입되어 시공을 진행하며, 현장 소장이 <span class="highlight">매일 공사 현장을 관리</span>합니다.</li>
+        </ul>
+      </li>
+      <li><strong>4단계: 시공 완료 및 사후 관리 (AS)</strong>
+        <ul>
+            <li><strong>최종 점검:</strong> 고객님과 함께 시공 완료 부분을 최종 점검하여 미흡한 부분을 수정 보완합니다.</li>
+            <li><strong>잔금 처리 및 AS:</strong> 계약서에 명시된 AS 기간 내 발생하는 문제에 대해 신속하게 대응합니다.</li>
+        </ul>
+      </li>
+    </ol>
+  </section>
+
+  <section id="cost-analysis">
+    <h2>통영 인테리어 평균 비용 분석 및 견적 가이드 (2026년 기준)</h2>
+    <p>인테리어 <span class="highlight">비용</span>은 천차만별입니다. 통영 지역은 인건비와 자재 운송비(섬 지역의 경우)에 따라 내륙 지역과 차이가 발생할 수 있습니다. <span class="highlight">평균 견적</span>을 파악하고 <span class="highlight">저렴한곳</span>을 찾는 것도 중요하지만, 품질 대비 <span class="highlight">가성비</span>를 따져보는 것이 현명한 선택입니다. 아래는 2026년 기준 통영 지역 아파트 인테리어 <span class="highlight">예상 금액</span> 가이드입니다.</p>
+
+    <h3>1. 아파트 평수별 예상 <span class="highlight">견적</span> (전체 리모델링 기준)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>평수 (면적)</th>
+          <th>시공 범위</th>
+          <th><span class="highlight">예상 금액</span> 범위 (기본~고급 자재)</th>
+          <th>특이사항 및 고려사항</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>20평대 (약 66㎡)</td>
+          <td>전체 인테리어 (주방, 욕실 1개 포함)</td>
+          <td>1,800만원 ~ 3,000만원</td>
+          <td><span class="highlight">신혼부부, 1인 가구</span> 선호 평형. 좁은 공간의 효율성을 극대화하는 디자인이 중요.</td>
+        </tr>
+        <tr>
+          <td>30평대 (약 99㎡)</td>
+          <td>전체 인테리어 (주방, 욕실 2개 포함)</td>
+          <td>2,500만원 ~ 4,500만원</td>
+          <td>가장 일반적인 <span class="highlight">통영 아파트</span> 평형대. 자재 선택의 폭이 넓어 <span class="highlight">가격</span> 변동성이 큼.</td>
+        </tr>
+        <tr>
+          <td>40평대 이상 (약 132㎡)</td>
+          <td>전체 인테리어 (주방, 욕실 2개 이상 포함)</td>
+          <td>4,000만원 ~ 7,000만원 이상</td>
+          <td>확장 공사, 시스템 에어컨, 고급 마감재(원목 마루, 대형 타일 등) 선택 시 <span class="highlight">비용</span> 상승.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>2. 부분 인테리어 <span class="highlight">가격</span> (단일 공사 기준)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>공사 항목</th>
+          <th><span class="highlight">평균 비용</span> 범위</th>
+          <th>주요 시공 내용</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>주방 리모델링 (싱크대, 타일)</td>
+          <td>500만원 ~ 1,000만원</td>
+          <td>싱크대 교체, 주방 가구, 벽/바닥 타일 교체, 조명</td>
+        </tr>
+        <tr>
+          <td>욕실 리모델링 (1개소)</td>
+          <td>300만원 ~ 500만원</td>
+          <td>타일, 위생도기(세면대, 변기), 수전, 욕조/샤워부스 교체</td>
+        </tr>
+        <tr>
+          <td>창호 (샤시) 교체</td>
+          <td>400만원 ~ 800만원</td>
+          <td>단열에 가장 중요하며, <span class="highlight">통영 해안가</span> 지역은 <span class="highlight">결로 방지</span> 자재 필수.</td>
+        </tr>
+        <tr>
+          <td>도배 및 바닥재 교체</td>
+          <td>200만원 ~ 400만원</td>
+          <td>실크벽지/합지, 강마루/장판 선택에 따라 <span class="highlight">가격 차이점</span> 발생.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="highlight">※ 위 <span class="highlight">금액</span>은 2026년 통영 지역 평균 <span class="highlight">예상 견적</span>이며, 자재 및 시공 범위에 따라 <span class="highlight">차이점</span>이 발생할 수 있습니다. <span class="highlight">저렴한곳</span>을 찾더라도 반드시 <span class="highlight">시공 장점</span>과 AS 여부를 확인해야 합니다.</p>
+  </section>
+
+  <section id="materials">
+    <h2>인테리어 자재 <span class="highlight">장단점 비교</span> 및 선택 가이드</h2>
+    <p>인테리어 <span class="highlight">장단점</span>을 고려한 자재 선택은 시공 결과물의 만족도와 직결됩니다. <span class="highlight">저렴한</span> 자재만 고집하면 <span class="highlight">단점</span>이 명확하며, 무조건 비싼 자재가 최선은 아닙니다. 고객님의 예산과 라이프스타일에 맞는 최적의 자재를 추천해 드립니다.</p>
+
+    <h3>1. 바닥재 <span class="highlight">비교</span>: 강마루 vs 장판 vs 포세린 타일</h3>
+    <ul>
+      <li><strong>강마루 (마루):</strong> 표면이 합판이어서 열전도율이 좋고, 내구성이 강해 찍힘에 강합니다. <span class="highlight">장점:</span> 고급스러운 외관, 다양한 패턴. <span class="highlight">단점:</span> 물에 약해 습기에 취약(통영 지역 고려 필요), 장판 대비 <span class="highlight">가격</span>이 비쌈.</li>
+      <li><strong>장판 (PVC 시트):</strong> <span class="highlight">장점:</span> 내수성이 뛰어나 습기, 오염에 강하며 <span class="highlight">가격</span>이 저렴합니다. <span class="highlight">단점:</span> 찍힘이나 긁힘에 약함, 마루 대비 고급스러운 느낌이 부족함.</li>
+      <li><strong>포세린 타일:</strong> <span class="highlight">장점:</span> 내구성이 매우 강하고, 층간 소음에 유리합니다. <span class="highlight">단점:</span> 겨울철 차가움, 시공 <span class="highlight">비용</span>이 높음.</li>
+    </ul>
+
+    <h3>2. 벽 마감재 <span class="highlight">비교</span>: 실크 벽지 vs 합지 vs 페인트</h3>
+    <ul>
+      <li><strong>실크 벽지:</strong> <span class="highlight">장점:</span> 고급스러운 질감, 오염에 강해 청소가 용이함. <span class="highlight">단점:</span> <span class="highlight">가격</span>이 비싸고, 통기성이 상대적으로 낮음.</li>
+      <li><strong>합지 벽지:</strong> <span class="highlight">장점:</span> <span class="highlight">가격</span>이 저렴하고 통기성이 좋음. <span class="highlight">단점:</span> 오염에 약하고, 내구성이 낮아 쉽게 찢어질 수 있음.</li>
+      <li><strong>친환경 페인트:</strong> <span class="highlight">장점:</span> 인체에 무해하며, 원하는 색상 구현이 자유로움. <span class="highlight">단점:</span> 시공 난이도가 높고, 전문 기술이 필요함.</li>
+    </ul>
+  </section>
+
+  <section id="faq">
+    <h2>통영 인테리어 자주 묻는 질문 (FAQ)</h2>
+
+    <h3>Q. 통영에서 인테리어 업체 <span class="highlight">추천</span>을 받을 때, <span class="highlight">내돈내산 후기</span>는 어떻게 확인하나요?</h3>
+    <p>A. 네이버 카페 '통영맘' 등 지역 커뮤니티나 블로그 후기를 참고하는 것이 좋습니다. '통영 인테리어 <span class="highlight">내돈내산 후기</span>' 키워드로 검색하여 실제 시공 사례와 고객 <span class="highlight">만족도</span>를 확인하세요. 다만, 광고성 후기와 실제 후기를 구분하는 안목이 필요합니다. 저희는 <span class="highlight">투명한 견적</span>과 책임감 있는 시공으로 고객님의 <span class="highlight">신뢰</span>를 얻고 있습니다.</p>
+
+    <h3>Q. 인테리어 시공 후 <span class="highlight">AS 기간</span>은 얼마나 되나요?</h3>
+    <p>A. 관련 법규에 따르면 하자 보수 기간은 1년입니다. 하지만 저희는 시공 항목에 따라 최장 2년까지 <span class="highlight">무상 AS</span>를 제공하고 있습니다. 누수, 결로, 타일 파손 등 주요 하자에 대해서는 신속하게 처리해 드립니다.</p>
+
+    <h3>Q. <span class="highlight">통영 원룸 인테리어</span>도 가능한가요? <span class="highlight">저렴한곳</span>을 찾고 있습니다.</h3>
+    <p>A. 네, <span class="highlight">통영 원룸</span> 또는 <span class="highlight">오피스텔</span> 인테리어도 전문적으로 진행합니다. 1인 가구의 경우 <span class="highlight">저렴한</span> 비용으로 <span class="highlight">가성비</span> 높은 <span class="highlight">부분 인테리어</span>(도배, 장판, 주방 리폼)가 인기가 많습니다. <span class="highlight">합리적인 가격</span>으로 공간 활용을 극대화하는 솔루션을 제공합니다.</p>
+
+    <h3>Q. <span class="highlight">통영 상가 인테리어</span> 시공 시 <span class="highlight">장점</span>과 <span class="highlight">단점</span>을 알려주세요.</h3>
+    <p>A. <span class="highlight">상가 인테리어의 장점</span>은 고객 유입을 위한 독특한 디자인 구현이 가능하다는 점입니다. <span class="highlight">단점</span>은 주거 공간보다 까다로운 소방/안전 규정을 준수해야 하며, 영업 손실을 최소화하기 위해 공사 기간을 철저히 지켜야 한다는 것입니다.</p>
+
+    <h3>Q. <span class="highlight">통영 인테리어</span> 업체들의 <span class="highlight">순위</span>를 알 수 있나요?</h3>
+    <p>A. 공식적인 인테리어 업체 <span class="highlight">순위</span>는 존재하지 않습니다. 네이버 지도 리뷰 <span class="highlight">순위</span>나 지역 커뮤니티 <span class="highlight">추천</span>을 참고하는 것이 일반적입니다. <span class="highlight">내돈내산</span> 후기와 시공 포트폴리오를 직접 <span class="highlight">비교</span>하는 것이 중요합니다.</p>
+  </section>
+
+  <section id="reviews">
+    <h2>통영 고객 <span class="highlight">내돈내산 후기</span> 및 <span class="highlight">만족도</span></h2>
+    <p>실제 시공을 맡기신 고객님들의 솔직한 <span class="highlight">후기</span>를 통해 저희 업체의 <span class="highlight">장점</span>과 신뢰도를 확인하실 수 있습니다.</p>
+    <blockquote>
+      “통영 <span class="highlight">죽림동</span> 33평 아파트 리모델링을 맡겼습니다. 3군데 <span class="highlight">견적</span>을 받아봤는데, 가장 합리적인 <span class="highlight">비용</span>을 제시해주셨고, 무엇보다 상담 과정에서 전문성이 느껴졌습니다. 2026년 트렌드에 맞는 깔끔한 화이트 인테리어를 원했는데, 기대 이상으로 예쁘게 나왔습니다. 특히 욕실 방수 공사를 꼼꼼하게 해주셔서 안심이 됩니다. 통영 인테리어 <span class="highlight">추천</span>합니다.” <br>– <span class="highlight">통영 죽림 푸르지오 거주자 박**</span>
+    </blockquote>
+    <blockquote>
+      “<span class="highlight">무전동</span>에 새로 오픈하는 카페 인테리어를 의뢰했습니다. 젊은 감각으로 디자인을 제안해주셔서 고객들의 반응이 좋습니다. <span class="highlight">상업 공간 인테리어</span> 경험이 많으셔서 복잡한 부분(소방, 전기)도 알아서 처리해주셨어요. <span class="highlight">가격</span> 대비 <span class="highlight">만족도</span>가 높습니다.”<br>– <span class="highlight">통영 무전동 카페 사장님 이**</span>
+    </blockquote>
+  </section>
+
+  <section id="links">
+    <h2>신뢰성 있는 외부 정보 (공신력 있는 자료 참고)</h2>
+    <ul>
+      <li><a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=108619&efYd=20210817#0000" target="_blank">주택법 (인테리어 관련) (법제처)</a> - 인테리어 공사 시 준수해야 할 법적 규제 및 관리 규정을 확인합니다.</li>
+      <li><a href="https://www.kca.go.kr/apc/search/info.do?apc=030101&no=1234&menuno=030101" target="_blank">소비자 피해주의보 - 인테리어/리모델링 (한국소비자원)</a> - 인테리어 계약 시 소비자 보호 지침 및 유의사항을 확인합니다.</li>
+      <li><a href="https://www.kma.go.kr/" target="_blank">기상청 (통영 지역 기상 정보)</a> - 통영 지역의 기후 특성(습도, 염분 등)을 확인하여 인테리어 자재 선택에 반영합니다.</li>
+      <li><a href="https://www.tongyeong.go.kr/" target="_blank">통영시청 (통영 지역 정보)</a> - 통영시의 행정 구역 및 지역 개발 계획을 확인하여 인테리어 트렌드를 예측합니다.</li>
+      <li><a href="https://namu.wiki/w/%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4" target="_blank">인테리어 (나무위키)</a> - 인테리어의 기본 개념, 공정, 자재에 대한 일반적인 정보를 참고합니다.</li>
+    </ul>
+  </section>
+
+  <section id="estimate-form">
+    <h2>무료 견적 상담 신청 (통영 지역 한정)</h2>
+    <p>아래 폼을 작성하시면 전문 컨설턴트가 고객님의 <span class="highlight">인테리어 희망 사항을 분석하여 가장 정확한 견적을 산출</span>해 드립니다. <span class="highlight">평균, 가격, 비용</span> 등 궁금하신 점을 상세하게 문의해주세요.</p>
+    <form action="#" method="post">
+      <div class="form-group">
+        <label for="name">성함 (필수)</label>
+        <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+      </div>
+      <div class="form-group">
+        <label for="phone">연락처 (필수)</label>
+        <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+      </div>
+      <div class="form-group">
+        <label for="area">통영 내 시공 희망 지역 (필수)</label>
+        <select id="area" name="area" required>
+          <option value="">지역 선택</option>
+          <option value="죽림동">죽림동</option>
+          <option value="무전동">무전동</option>
+          <option value="광도면">광도면</option>
+          <option value="도천동">도천동</option>
+          <option value="북신동">북신동</option>
+          <option value="정량동">정량동</option>
+          <option value="용남면">용남면</option>
+          <option value="산양읍">산양읍</option>
+          <option value="미수동">미수동</option>
+          <option value="봉평동">봉평동</option>
+          <option value="도남동">도남동</option>
+          <option value="인평동">인평동</option>
+          <option value="명정동">명정동</option>
+          <option value="평림동">평림동</option>
+          <option value="태평동">태평동</option>
+          <option value="항남동">항남동</option>
+          <option value="중앙동">중앙동</option>
+          <option value="서호동">서호동</option>
+          <option value="동호동">동호동</option>
+          <option value="당동">당동</option>
+          <option value="문화동">문화동</option>
+          <option value="사량면">사량면 (사량도)</option>
+          <option value="욕지면">욕지면 (욕지도)</option>
+          <option value="한산면">한산면 (한산도)</option>
+          <option value="도산면">도산면</option>
+          <option value="산양면">산양면</option>
+          <option value="금평리">금평리</option>
+          <option value="통영시">기타 통영시 전 지역</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="project_type">공사 종류 (필수)</label>
+        <select id="project_type" name="project_type" required>
+          <option value="">선택</option>
+          <option value="all">아파트 전체 리모델링</option>
+          <option value="part">주방/욕실 등 부분 리모델링</option>
+          <option value="commercial">상업 공간 (카페/식당 등)</option>
+          <option value="new_house">신축 주택 인테리어</option>
+          <option value="other">기타</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="detail">세부 문의 내용 (희망 <span class="highlight">예상 금액</span>, <span class="highlight">기간</span> 등)</label>
+        <textarea id="detail" name="detail" placeholder="예: 30평대 아파트 주방과 욕실만 리모델링하고 싶습니다. 예산은 1,000만원 정도 생각합니다."></textarea>
+      </div>
+      <button type="submit" class="cta-btn">견적 상담 신청</button>
+    </form>
+  </section>
+
+  <section id="location">
+    <h2>통영 사무실 위치 및 서비스 가능 지역</h2>
+    <p>통영시 광도면 죽림해안로 123 (통영 전 지역 출장 상담 가능: <span class="highlight">죽림, 무전동, 광도면, 도천동, 용남면, 산양읍, 미수동, 북신동, 정량동</span>)</p>
+    <!-- Placeholder for Google Maps iframe - ensure this link works for the specific address -->
+    <iframe src="https://maps.google.com/maps?q=통영%20광도면%20죽림해안로%20123&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+  </section>
+
+  
