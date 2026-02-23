@@ -14,8 +14,10 @@
 <meta name="twitter:title" content="통영인테리어"/>
 <meta name="twitter:url" content="/"/>
 <meta name="twitter:image" content="https://financial.pstatic.net/insurance/insurance_car.png"/>
+<meta name="google-site-verification" content="Ch1yWk0osDMWz04XNTZ04nhF8jCo1Td789Q2Swikg_U" />
+<meta name="naver-site-verification" content="932dcecbfee79a0b4495028ad9d83ef9cce66449" />
 
-
+	
 <meta name="subject" content="통영인테리어" />
 <meta name="publisher" content="통영인테리어" />
 <meta name="Other Agent" content="통영인테리어" />
@@ -610,6 +612,7 @@
 
 
 
+
 <footer style="font-size: 11px; color: #888; padding: 30px 20px; text-align: center; line-height: 1.8; font-family: sans-serif;">
   <div style="margin-bottom: 8px;">
     <!-- 봇이 JS를 실행 못해도 기본값은 읽어갈 수 있게 연도를 미리 적어둡니다 -->
@@ -644,9 +647,9 @@
       const second = String(kstDate.getSeconds()).padStart(2, '0');
 
       // YYYY-MM-DD 형식 (footer 보여주기용)
-      const formattedDate = 통영인테리어${year}-${month}-${day}통영인테리어;
+      const formattedDate = `${year}-${month}-${day}`;
       // ISO 8601 형식 (검색엔진이 가장 좋아하는 표준 포맷)
-      const isoDateTime = 통영인테리어${year}-${month}-${day}T${hour}:${minute}:${second}+09:00통영인테리어;
+      const isoDateTime = `${year}-${month}-${day}T${hour}:${minute}:${second}+09:00`;
       
       return { year, formattedDate, isoDateTime };
     }
@@ -700,7 +703,7 @@
     // 3. SEO 메타 태그 업데이트 (Naver/Google 공통)
     // ----------------------------------------------------------------------
     function setMetaTag(attrType, attrName, content) {
-      let selector = 통영인테리어meta[${attrType}="${attrName}"]통영인테리어;
+      let selector = `meta[${attrType}="${attrName}"]`;
       let meta = document.querySelector(selector);
       if (!meta) {
         meta = document.createElement('meta');
@@ -721,7 +724,7 @@
       setMetaTag('name', 'date', data.formattedDate);
 
       // (D) 저작권 정보 갱신 (네이버 소유 확인 시 참고)
-      setMetaTag('name', 'copyright', 통영인테리어${data.year} ${document.title}통영인테리어);
+      setMetaTag('name', 'copyright', `${data.year} ${document.title}`);
     }
 
     // ----------------------------------------------------------------------
@@ -759,7 +762,6 @@
     updateJsonLd(timeData);
   })();
 </script>
-
 
 
 
